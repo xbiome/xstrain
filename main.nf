@@ -129,7 +129,7 @@ process mergeProfile {
     set prefix, file("${prefix}.counts.csv") into ch_merged
 
     """
-    merge_tables.r -p "*bz2" -o ${prefix}.counts.csv
+    Rscript /opt/bin/merge_tables.r -p "*bz2" -o ${prefix}.counts.csv
     """
 }
 
@@ -154,7 +154,7 @@ process runStrainPanDAR {
     file("*.{pdf,rds,csv,txt}") into ch_all
 
     """
-    run_strainpandar.r -c $counts -r $pangenome -o ${prefix}.strainpanda -t $task.cpus -m $params.max_strain_rank -n $params.strain_rank
+    Rscript /opt/bin/run_strainpandar.r -c $counts -r $pangenome -o ${prefix}.strainpanda -t $task.cpus -m $params.max_strain_rank -n $params.strain_rank
     """
 }
 

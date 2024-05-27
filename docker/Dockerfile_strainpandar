@@ -40,6 +40,7 @@ RUN R -e "install.packages('R.utils')"
 RUN R -e "install.packages('BiocManager')"
 RUN R -e "BiocManager::install('Biobase')"
 RUN R -e "install.packages('NMF')"
+RUN R -e "install.packages('pkgmaker')"
 
 RUN wget https://cran.r-project.org/src/contrib/Archive/NMF/NMF_0.23.0.tar.gz && \
     R CMD INSTALL NMF_0.23.0.tar.gz && \
@@ -51,6 +52,8 @@ RUN tar -czf strainpandar.tar.gz strainpandar && \
     R CMD INSTALL strainpandar.tar.gz && \
         rm strainpandar.tar.gz
 
+COPY ./bin/merge_tables.r /opt/bin/merge_tables.r
+COPY ./bin/run_strainpandar.r /opt/bin/run_strainpandar.r
 
 ENTRYPOINT ["/bin/bash"]
 ##################### INSTALLATION END #####################
